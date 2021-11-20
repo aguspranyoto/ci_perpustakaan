@@ -6,7 +6,7 @@
             <td>Password Baru</td>
             <td><input type="password" name="password" value="" required="" class="form-control"></td>
         </tr>
-        <!-- ngecek password -->
+        <!-- cek password -->
         <?php
         ?>
 
