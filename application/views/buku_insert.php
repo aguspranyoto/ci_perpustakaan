@@ -1,13 +1,13 @@
 <form method="post" action="<?php echo site_url('buku/insert_submit/');?>">
 	<table class="table table-striped">
 		<tr>
-			<td>Kategori Buku</td>
-			<!--$data_buku_single['judul'] : menampilkan data buku yang dipilih dari database -->
+			<td>Kategori barang</td>
+			<!--$data_barang_single['judul'] : menampilkan data barang yang dipilih dari database -->
 			<td>
-				<select name="kategori_buku_id" class="form-control">
-				<?php foreach($data_kategori_buku as $kategori_buku):?>
-				<option value="<?php echo $kategori_buku['id'];?>">
-					<?php echo $kategori_buku['nama'];?>
+				<select name="kategori_barang_id" class="form-control">
+				<?php foreach($data_kategori_barang as $kategori_barang):?>
+				<option value="<?php echo $kategori_barang['id_kategori'];?>">
+					<?php echo $kategori_barang['kategori_barang'];?>
 				</option>
 				<?php endforeach;?>
 				</select>

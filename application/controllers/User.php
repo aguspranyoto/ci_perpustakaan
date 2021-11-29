@@ -6,6 +6,7 @@ class User extends CI_Controller {
 	public function __construct() {
         parent::__construct();
 
+		
         //memanggil model
         $this->load->model(array('user_model'));
     }
@@ -168,6 +169,10 @@ class User extends CI_Controller {
     public function read() {
         //memanggil function read pada user model
 		//function read berfungsi mengambil/read data dari table user di database
+		if(empty($this->session->userdata('id'))) {
+        	redirect('user/login');
+		}
+		
 		$data_user = $this->user_model->read();
 
 		//mengirim data ke view
@@ -225,41 +230,43 @@ class User extends CI_Controller {
 	public function update() {
 		//menangkap id data yg dipilih dari view (parameter get)
 		$id = $this->uri->segment(3);
-
+		
 		//function read berfungsi mengambil 1 data dari table user sesuai id yg dipilih
-		$data_user_single = $this->user_model->read_data($id);
+		$data_user_single = $this->user_model->read_single_id($id);
 
 		//mengirim data ke view
 		$output = array(
-			'judul' => 'Ubah user',
-			'theme_page' => 'user_update',
+						'theme_page' => 'user_update',
+						'judul' => 'Ubah user',
 
-			//mengirim data user yang dipilih ke view
-			'read_data' => $data_user_single,
-		);
+						//mengirim data user yang dipilih ke view
+						'data_user_single' => $data_user_single,
+
+		
+					);
 
 		//memanggil file view
 		$this->load->view('theme/index', $output);
 	}
 
-	public function update_submit()
-	{
+	public function update_submit() {
 		//menangkap id data yg dipilih dari view
 		$id = $this->uri->segment(3);
 
 		//menangkap data input dari view
-		$username = $this->input->post('username');
 		$nama = $this->input->post('nama');
+		$username = $this->input->post('username');
 
 		//mengirim data ke model
 		$input = array(
-			//format : nama field/kolom table => data input dari view
-            'username' => $username,
-			'nama' => $nama,
-		);
+						//format : nama field/kolom table => data input dari view
+						
+						'nama' => $nama,
+						'username' => $username,
+					);
 
-		//memanggil function insert pada user model
-		//function insert berfungsi menyimpan/create data ke table user di database
+		//memanggil function update pada user model
+		//function update berfungsi merubah data ke table user di database
 		$data_user = $this->user_model->update($input, $id);
 
 		//mengembalikan halaman ke function read
